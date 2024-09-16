@@ -1,1 +1,1 @@
-kjdsjkdsjk
+int(input(""))
