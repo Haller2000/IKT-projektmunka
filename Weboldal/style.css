@@ -1,0 +1,83 @@
+/* Alap stílusok */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #0073e6;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+}
+
+section.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 1000px;
+}
+
+section.row.alternate {
+    flex-direction: row-reverse;
+}
+
+.text {
+    flex: 1;
+    padding: 20px;
+    text-align: justify;
+}
+
+.image {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Láb rész */
+footer {
+    text-align: center;
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 0;
+    margin-top: 30px;
+}
+
+/* Mobil nézet */
+@media (max-width: 768px) {
+    section.row {
+        flex-direction: column;
+    }
+
+    section.row.alternate {
+        flex-direction: column;
+    }
+
+    .image, .text {
+        padding: 10px;
+    }
+}
