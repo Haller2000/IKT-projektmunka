@@ -1,4 +1,3 @@
-
 import random
 import string
 
@@ -33,9 +32,9 @@ def menu():
             
             veletlen_szamok = veletlen_szamok_generalo(darabszam, minimum, maximum)
             
-            
-            # Eredmények kiírása fájlba
-            with open("ki.txt", "w") as file:
+            # Eredmények kiírása fájlba, fejléc hozzáadásával
+            with open("ki.txt", "a") as file:  # 'a' mód az append, nem felülír
+                file.write("Veletlen szamok:\n")
                 file.write(";".join(map(str, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -45,9 +44,9 @@ def menu():
             
             veletlen_szovegek = veletlen_szoveg_generalo(darabszam)
             
-            
-            # Eredmények kiírása fájlba
-            with open("ki.txt", "w") as file:
+            # Eredmények kiírása fájlba, fejléc hozzáadásával
+            with open("ki.txt", "a") as file:  # 'a' mód az append, nem felülír
+                file.write("Veletlen szovegek:\n")
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -60,4 +59,3 @@ def menu():
 
 # Főprogram futtatása
 menu()
-
