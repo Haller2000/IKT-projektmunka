@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> aca12b5de1cbe726b4b54a94c73f3c3524b30495
 import random
 import string
 
@@ -41,10 +37,6 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-<<<<<<< HEAD
-
-=======
->>>>>>> aca12b5de1cbe726b4b54a94c73f3c3524b30495
                 file.write(";".join(map(str, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -57,10 +49,6 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-<<<<<<< HEAD
-
-=======
->>>>>>> aca12b5de1cbe726b4b54a94c73f3c3524b30495
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
