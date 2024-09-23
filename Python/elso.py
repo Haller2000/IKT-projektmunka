@@ -20,7 +20,9 @@ def menu():
         print("Válassz egy lehetőséget:")
         print("1. Véletlen egész számok generálása")
         print("2. Véletlen szövegek generálása")
-        print("3. Kilépés")
+        print("3. Számok ellenőrzése")
+        print("4. Szövegek ellenőrzése")
+        print("5. Kilépés")
         
         valasztas = input("Írd be a választott lehetőség számát (1-3): ")
         
@@ -32,10 +34,10 @@ def menu():
             
             veletlen_szamok = veletlen_szamok_generalo(darabszam, minimum, maximum)
             
-            # Eredmények kiírása fájlba, fejléc hozzáadásával
-            with open("ki.txt", "a") as file:  # 'a' mód az append, nem felülír
-                file.write("Veletlen szamok:\n")
-                file.write(";".join(map(str, veletlen_szamok)) + "\n")
+            
+            # Eredmények kiírása fájlba
+            with open("ki.txt", "w") as file:
+                file.write(";".join(map(int, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         elif valasztas == '2':
@@ -44,13 +46,22 @@ def menu():
             
             veletlen_szovegek = veletlen_szoveg_generalo(darabszam)
             
-            # Eredmények kiírása fájlba, fejléc hozzáadásával
-            with open("ki.txt", "a") as file:  # 'a' mód az append, nem felülír
-                file.write("Veletlen szovegek:\n")
+            
+            # Eredmények kiírása fájlba
+            with open("ki.txt", "w") as file:
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         elif valasztas == '3':
+            darabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
+            minimum = int(input("Add meg a minimum értéket: "))
+            maximum = int(input("Add meg a maximum értéket: "))
+
+            with open("ki.txt" , "r") as file:
+                file.read(";")
+
+        
+        elif valasztas == '5':
             print("Kilépés...")
             break
         
