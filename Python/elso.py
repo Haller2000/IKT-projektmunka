@@ -24,7 +24,7 @@ def menu():
         print("4. Szövegek ellenőrzése")
         print("5. Kilépés")
         
-        valasztas = input("Írd be a választott lehetőség számát (1-3): ")
+        valasztas = input("Írd be a választott lehetőség számát (1-5): ")
         
         if valasztas == '1':
             # Véletlen egész számok generálása
@@ -36,8 +36,9 @@ def menu():
             
             
             # Eredmények kiírása fájlba
-            with open("ki.txt", "w") as file:
-                file.write(";".join(map(int, veletlen_szamok)) + "\n")
+            with open("ki.txt", "a") as file:
+                file.write("Véletlen kibaszom anyádat az ablakon \n")
+                file.write(";".join(map(str, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         elif valasztas == '2':
@@ -48,18 +49,12 @@ def menu():
             
             
             # Eredmények kiírása fájlba
-            with open("ki.txt", "w") as file:
+            with open("ki.txt", "a") as file:
+                file.write("Véletlen kibaszom anyádat az ablakon \n")
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
-        elif valasztas == '3':
-            edarabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
-            eminimum = int(input("Add meg a minimum értéket: "))
-            emaximum = int(input("Add meg a maximum értéket: "))
-
-            with open("ki.txt" , "r") as file:
-                file.read(";")
-
+        
         
         elif valasztas == '5':
             print("Kilépés...")
