@@ -14,20 +14,28 @@ def write_file(filename, data):
         with open(filename, 'w') as file:
             for item in data:
                 file.write(f"{item}\n")  # Soronként írja vissza az adatokat
+        print(f"A {filename} fájl frissítve lett.")
     except Exception as e:
         print(f"Hiba történt a fájl írása közben: {e}")
 
 def check_and_convert_data(data):
-    """Ellenőrzi és konvertálja az adatokat, ha számok"""
-    converted_data = []
+    """
+    Eldönti, hogy a lista számokat vagy szövegeket tartalmaz.
+    Ha számokat tartalmaz, azokat int-té alakítja.
+    Ha vegyes vagy hibás adatot tartalmaz, visszatér hibaüzenettel.
+    """
+    is_numeric = True
     for item in data:
-        try:
-            converted_data.append(int(item))  # Megpróbálja átalakítani int-té
-        except ValueError:
-            print(f"Hiba: '{item}' nem szám.")
-            return None
-    return converted_data
+        if not item.isdigit():  # Ellenőrzi, hogy az elem szám-e
+            is_numeric = False
+            break
 
+    if is_numeric:
+        return [int(item) for item in data]  # Számok int-té konvertálása
+    else:
+        return data  # Szöveges adatok hagyása
+
+# Egyszerű cserés rendezés
 def selection_sort(arr, reverse=False):
     """Egyszerű cserés rendezés (választható növekvő vagy csökkenő)"""
     n = len(arr)
@@ -39,44 +47,71 @@ def selection_sort(arr, reverse=False):
         arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 
+# Quicksort (második algoritmus)
+def quicksort(arr, reverse=False):
+    """Quicksort algoritmus (választható növekvő vagy csökkenő)"""
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if (x < pivot and not reverse) or (x > pivot and reverse)]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if (x > pivot and not reverse) or (x < pivot and reverse)]
+    return quicksort(left, reverse) + middle + quicksort(right, reverse)
+
+# Új elem beszúrása
+def insert_element(arr, elem, reverse=False):
+    """Új elem beszúrása a megfelelő helyre kereséssel"""
+    arr.append(elem)
+    arr = quicksort(arr, reverse)  # Rendezés a beszúrás után
+    return arr
+
 def main():
+    # Fájl beolvasása
     filename = 'ki.txt'
     data = read_file(filename)
-
+    
     if data is None:
         return
 
-    # Adatok konvertálása
+    # Adatok típusának eldöntése és konvertálás, ha számok
     data = check_and_convert_data(data)
-    if data is None:
-        return
-
-    # Rendezés irányának kiválasztása
+    
+    # Rendezési típus választása
+    sort_choice = input("Válaszd ki a rendezési algoritmust (1: egyszerű cserés rendezés, 2: Quicksort): ")
     reverse_choice = input("Válaszd ki a rendezés irányát (n: növekvő, c: csökkenő): ")
     reverse = True if reverse_choice == 'c' else False
     
     # Rendezés végrehajtása
-    sorted_data = selection_sort(data, reverse)
-    print("Rendezett adatok:", sorted_data)
+    if sort_choice == '1':
+        sorted_data = selection_sort(data, reverse)
+        print("Rendezett adatok (Egyszerű cserés rendezés):", sorted_data)
+    elif sort_choice == '2':
+        sorted_data = quicksort(data, reverse)
+        print("Rendezett adatok (Quicksort):", sorted_data)
+    else:
+        print("Helytelen választás.")
+        return
 
     # Rendezett adatok fájlba írása
     write_file(filename, sorted_data)
 
-    # Új elem beillesztése
-    new_elem = input("Adj meg egy új számot: ")
-    try:
-        new_elem = int(new_elem)  # Próbálja átalakítani int-té
-    except ValueError:
-        print("Hiba: Csak számokat adhatsz meg.")
-        return
+    # Új elem beszúrása
+    new_elem = input("Adj meg egy új elemet: ")
+    
+    # Új elem típusának eldöntése
+    if isinstance(data[0], int):  # Ha számok vannak
+        try:
+            new_elem = int(new_elem)
+        except ValueError:
+            print("Hiba: Csak számokat adhatsz meg.")
+            return
+    # A szöveges adatokat nem szükséges konvertálni
 
-    # Új elem hozzáadása és rendezés
-    sorted_data.append(new_elem)  # Új elem hozzáadása
-    sorted_data = selection_sort(sorted_data, reverse)  # Rendezés a beszúrás után
-    print("Frissített rendezett adatok:", sorted_data)
+    updated_data = insert_element(sorted_data, new_elem, reverse)
+    print("Az új elem beillesztése után rendezett adatok:", updated_data)
 
     # Frissített adatok visszaírása a fájlba
-    write_file(filename, sorted_data)
+    write_file(filename, updated_data)
 
 if __name__ == "__main__":
     main()

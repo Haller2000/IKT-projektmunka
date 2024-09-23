@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import random
 import string
 
@@ -38,7 +38,7 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-                file.write("Véletlen kibaszom anyádat az ablakon \n")
+
                 file.write(";".join(map(str, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -51,7 +51,7 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-                file.write("Véletlen kibaszom anyádat az ablakon \n")
+
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -66,5 +66,4 @@ def menu():
 
 # Főprogram futtatása
 menu()
-=======
->>>>>>> 2321522ae452c8122b032bb5568dcf03a0254151
+
