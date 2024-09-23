@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import random
 import string
 
@@ -65,3 +66,5 @@ def menu():
 
 # Főprogram futtatása
 menu()
+=======
+>>>>>>> 2321522ae452c8122b032bb5568dcf03a0254151

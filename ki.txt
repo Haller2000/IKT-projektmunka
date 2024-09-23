@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 Véletlen kibaszom anyádat az ablakon 
 19;60;1;79;100;25;81;58;98;100
 Véletlen kibaszom anyádat az ablakon 
 AAWUCJKUFHQyifi;cdj;QDGAevlDrsjf;brIOPaNgdmDDKsKtpiW;jzqvlzSfHTt;hsPmw;sJeIIKiSps;vQPVbKeRMx;OHihfiQ;zzXAPuHFWRaeyRqd
+=======
+>>>>>>> 2321522ae452c8122b032bb5568dcf03a0254151
