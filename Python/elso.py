@@ -53,9 +53,9 @@ def menu():
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         elif valasztas == '3':
-            darabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
-            minimum = int(input("Add meg a minimum értéket: "))
-            maximum = int(input("Add meg a maximum értéket: "))
+            edarabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
+            eminimum = int(input("Add meg a minimum értéket: "))
+            emaximum = int(input("Add meg a maximum értéket: "))
 
             with open("ki.txt" , "r") as file:
                 file.read(";")
