@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import random
 import string
 
@@ -38,7 +37,6 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-                file.write("Véletlen kibaszom anyádat az ablakon \n")
                 file.write(";".join(map(str, veletlen_szamok)) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -51,12 +49,32 @@ def menu():
             
             # Eredmények kiírása fájlba
             with open("ki.txt", "a") as file:
-                file.write("Véletlen kibaszom anyádat az ablakon \n")
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         
-        
+        elif valasztas == '3':
+            
+            edarabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
+            eminimum = int(input("Add meg a minimum értéket: "))
+            emaximum = int(input("Add meg a maximum értéket: "))
+
+            for veletlen_szamok in file:
+                if edarabszam == darabszam:
+                    print("Darabszám stimmel")
+                elif edarabszam != darabszam:
+                    break
+
+                if eminimum == minimum:
+                    print("Minimum érték stimmel")
+                elif eminimum != minimum:
+                    break
+
+                if emaximum == maximum:
+                    print("Maximum érték stimmel")
+                elif emaximum != maximum:
+                    break
+
         elif valasztas == '5':
             print("Kilépés...")
             break
@@ -66,5 +84,4 @@ def menu():
 
 # Főprogram futtatása
 menu()
-=======
->>>>>>> 2321522ae452c8122b032bb5568dcf03a0254151
+
