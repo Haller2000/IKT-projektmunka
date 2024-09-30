@@ -50,7 +50,7 @@ def menu():
             
             
             # Eredmények kiírása fájlba
-            with open("ki.txt", "a") as file:
+            with open("kis.txt", "a") as file:
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
@@ -73,7 +73,7 @@ def menu():
 
 
         elif valasztas == '4':
-            file = open('ki.txt','r')
+            file = open('kis.txt','r')
 
             eszdarabszam = int(input("Hány véletlen szöveget generált? "))
 
@@ -81,6 +81,7 @@ def menu():
                 print('A szövegek megfeleltek a feltételeknek')
             elif szdarabszam != darabszam:
                 print('A szövegek nem feleltek meg a feltételeknek')
+            
             
 
         elif valasztas == '5':
