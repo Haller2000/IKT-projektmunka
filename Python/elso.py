@@ -80,7 +80,10 @@ def menu():
             if szdarabszam == eszdarabszam:
                 print('A szövegek megfeleltek a feltételeknek')
             elif szdarabszam != darabszam:
-                print('A szövegek nem feleltek meg a feltételeknek')
+                if veletlen_szovegek <= 20:
+                    print('A szövegek nem feleltek meg a feltételeknek')
+            
+                
             
 
         elif valasztas == '5':
