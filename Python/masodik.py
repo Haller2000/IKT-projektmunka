@@ -18,40 +18,58 @@ def write_file(filename, data):
     except Exception as e:
         print(f"Hiba történt a fájl írása közben: {e}")
 
-def selection_sort(arr, reverse=False):
-    """Egyszerű cserés rendezés (választható növekvő vagy csökkenő)"""
+def selection_sort(arr, key=lambda x: x, reverse=False):
+    """Egyszerű cserés rendezés egy adott kulcs szerint (pl. szám vagy hossz)"""
     n = len(arr)
     for i in range(n):
         min_index = i
         for j in range(i + 1, n):
-            if (arr[j] < arr[min_index] and not reverse) or (arr[j] > arr[min_index] and reverse):
+            if (key(arr[j]) < key(arr[min_index]) and not reverse) or (key(arr[j]) > key(arr[min_index]) and reverse):
                 min_index = j
         arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 
-def insertion_sort(arr, reverse=False):
-    """Beszúrásos rendezés (választható növekvő vagy csökkenő)"""
+def insertion_sort(arr, key=lambda x: x, reverse=False):
+    """Beszúrásos rendezés egy adott kulcs szerint (pl. szám vagy hossz)"""
     for i in range(1, len(arr)):
-        key = arr[i]
+        key_value = arr[i]
         j = i - 1
-        while j >= 0 and ((key < arr[j] and not reverse) or (key > arr[j] and reverse)):
+        while j >= 0 and ((key(key_value) < key(arr[j]) and not reverse) or (key(key_value) > key(arr[j]) and reverse)):
             arr[j + 1] = arr[j]
             j -= 1
-        arr[j + 1] = key
+        arr[j + 1] = key_value
     return arr
+
+def is_number(s):
+    """Eldönti, hogy egy adott string szám-e."""
+    try:
+        float(s)  # Próbáljuk meg számmá alakítani
+        return True
+    except ValueError:
+        return False
+
+def process_line(line, reverse, algo_choice):
+    """Feldolgoz egy sort, eldöntve, hogy számokat vagy szavakat tartalmaz, és rendezve őket."""
+    if all(is_number(item) for item in line):  # Ha minden elem szám
+        line = [int(item) for item in line]  # Átalakítjuk int-té
+        key = lambda x: x  # Számok esetén a rendezési kulcs maga a szám
+    else:
+        key = lambda x: len(x)  # Szavak esetén a rendezési kulcs a szó hossza
+
+    # Választott rendezési algoritmus alkalmazása
+    if algo_choice == '1':
+        return selection_sort(line, key=key, reverse=reverse)
+    elif algo_choice == '2':
+        return insertion_sort(line, key=key, reverse=reverse)
+    else:
+        print("Hiba: Érvénytelen rendezési algoritmus.")
+        return line
 
 def main():
     filename = 'ki.txt'
     data = read_file(filename)
 
     if data is None:
-        return
-
-    # Ellenőrizzük, hogy a sorok csak számokat tartalmaznak-e, és konvertáljuk őket int-té
-    try:
-        data = [[int(item) for item in line] for line in data]  # Minden sor elemeit számmá alakítja
-    except ValueError:
-        print("Hiba: A fájl nem csak számokat tartalmaz.")
         return
 
     # Rendezés irányának kiválasztása
@@ -64,42 +82,27 @@ def main():
     print("2. Beszúrásos rendezés")
     algo_choice = input("Add meg a választásodat (1 vagy 2): ")
 
-    if algo_choice == '1':
-        # Egyszerű cserés rendezés
-        sorted_data = [selection_sort(line, reverse) for line in data]
-    elif algo_choice == '2':
-        # Beszúrásos rendezés
-        sorted_data = [insertion_sort(line, reverse) for line in data]
-    else:
-        print("Érvénytelen választás. A program leáll.")
-        return
-
+    # Minden sort külön rendezünk szám vagy szó alapján
+    sorted_data = [process_line(line, reverse, algo_choice) for line in data]
     print("Rendezett adatok:", sorted_data)
 
     # Rendezett adatok fájlba írása
     write_file(filename, sorted_data)
 
     # Új elem beillesztése egy adott sorba
-    sor_index = int(input("Melyik sorba szeretnéd az új számot beilleszteni? (1-től kezdve): ")) - 1
+    sor_index = int(input("Melyik sorba szeretnéd az új számot vagy szót beilleszteni? (1-től kezdve): ")) - 1
     if sor_index < 0 or sor_index >= len(sorted_data):
         print("Hiba: Érvénytelen sorindex.")
         return
-    
-    new_elem = input("Adj meg egy új számot: ")
-    try:
-        new_elem = int(new_elem)  # Próbálja átalakítani int-té
-    except ValueError:
-        print("Hiba: Csak számokat adhatsz meg.")
-        return
+
+    new_elem = input("Adj meg egy új számot vagy szót: ")
+    if is_number(new_elem):
+        new_elem = int(new_elem)  # Ha szám, alakítsuk int-té
 
     # Új elem hozzáadása a megfelelő sorhoz és újrarendezés
     sorted_data[sor_index].append(new_elem)  # Új elem hozzáadása a kiválasztott sorhoz
+    sorted_data[sor_index] = process_line(sorted_data[sor_index], reverse, algo_choice)  # A sor újrarendezése
 
-    if algo_choice == '1':
-        sorted_data[sor_index] = selection_sort(sorted_data[sor_index], reverse)  # A sor újrarendezése
-    elif algo_choice == '2':
-        sorted_data[sor_index] = insertion_sort(sorted_data[sor_index], reverse)  # A sor újrarendezése
-    
     print("Frissített rendezett adatok:", sorted_data)
 
     # Frissített adatok visszaírása a fájlba
