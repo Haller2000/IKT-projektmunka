@@ -2,8 +2,8 @@ def read_file(filename):
     """Beolvassa a fájl sorait, és soronként listákká alakítja."""
     try:
         with open(filename, 'r') as file:
-            lines = file.read().strip().splitlines()  # Soronként olvassa be a fájlt
-        data = [line.split(';') for line in lines]  # Minden sort pontosvessző mentén feloszt
+            lines = file.read().strip().splitlines()  
+        data = [line.split(';') for line in lines]  
         return data
     except FileNotFoundError:
         print(f"Hiba: {filename} nem található.")
@@ -14,12 +14,11 @@ def write_file(filename, data):
     try:
         with open(filename, 'w') as file:
             for line in data:
-                file.write(';'.join(map(str, line)) + '\n')  # Soronként írja vissza a fájlba
+                file.write(';'.join(map(str, line)) + '\n')  
     except Exception as e:
         print(f"Hiba történt a fájl írása közben: {e}")
 
 def selection_sort(arr, key=lambda x: x, reverse=False):
-    """Egyszerű cserés rendezés egy adott kulcs szerint (pl. szám vagy hossz)"""
     n = len(arr)
     for i in range(n):
         min_index = i
@@ -29,8 +28,7 @@ def selection_sort(arr, key=lambda x: x, reverse=False):
         arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
 
-def insertion_sort(arr, key=lambda x: x, reverse=False):
-    """Beszúrásos rendezés egy adott kulcs szerint (pl. szám vagy hossz)"""
+def insertion_sort(arr, key=lambda x: x, reverse=False):  
     for i in range(1, len(arr)):
         key_value = arr[i]
         j = i - 1
@@ -41,22 +39,21 @@ def insertion_sort(arr, key=lambda x: x, reverse=False):
     return arr
 
 def is_number(s):
-    """Eldönti, hogy egy adott string szám-e."""
+
     try:
-        float(s)  # Próbáljuk meg számmá alakítani
+        float(s)  
         return True
     except ValueError:
         return False
 
 def process_line(line, reverse, algo_choice):
-    """Feldolgoz egy sort, eldöntve, hogy számokat vagy szavakat tartalmaz, és rendezve őket."""
-    if all(is_number(item) for item in line):  # Ha minden elem szám
-        line = [int(item) for item in line]  # Átalakítjuk int-té
-        key = lambda x: x  # Számok esetén a rendezési kulcs maga a szám
+    """Feldolgoz egy sort, eldöntve, hogy számokat vagy szavakat tartalmaz, és rendezi őket."""
+    if all(is_number(item) for item in line):  
+        line = [int(item) for item in line]  
+        key = lambda x: x  
     else:
-        key = lambda x: len(x)  # Szavak esetén a rendezési kulcs a szó hossza
-
-    # Választott rendezési algoritmus alkalmazása
+        key = lambda x: len(x)  
+    
     if algo_choice == '1':
         return selection_sort(line, key=key, reverse=reverse)
     elif algo_choice == '2':
@@ -72,24 +69,24 @@ def main():
     if data is None:
         return
 
-    # Rendezés irányának kiválasztása
+    
     reverse_choice = input("Válaszd ki a rendezés irányát (n: növekvő, c: csökkenő): ")
     reverse = True if reverse_choice == 'c' else False
 
-    # Rendezési algoritmus kiválasztása
+    
     print("Válaszd ki a rendezési algoritmust:")
     print("1. Egyszerű cserés rendezés")
     print("2. Beszúrásos rendezés")
     algo_choice = input("Add meg a választásodat (1 vagy 2): ")
 
-    # Minden sort külön rendezünk szám vagy szó alapján
+
     sorted_data = [process_line(line, reverse, algo_choice) for line in data]
     print("Rendezett adatok:", sorted_data)
 
-    # Rendezett adatok fájlba írása
+
     write_file(filename, sorted_data)
 
-    # Új elem beillesztése egy adott sorba
+
     sor_index = int(input("Melyik sorba szeretnéd az új számot vagy szót beilleszteni? (1-től kezdve): ")) - 1
     if sor_index < 0 or sor_index >= len(sorted_data):
         print("Hiba: Érvénytelen sorindex.")
@@ -97,15 +94,14 @@ def main():
 
     new_elem = input("Adj meg egy új számot vagy szót: ")
     if is_number(new_elem):
-        new_elem = int(new_elem)  # Ha szám, alakítsuk int-té
+        new_elem = int(new_elem)  
 
-    # Új elem hozzáadása a megfelelő sorhoz és újrarendezés
-    sorted_data[sor_index].append(new_elem)  # Új elem hozzáadása a kiválasztott sorhoz
-    sorted_data[sor_index] = process_line(sorted_data[sor_index], reverse, algo_choice)  # A sor újrarendezése
+   
+    sorted_data[sor_index].append(new_elem)  
+    sorted_data[sor_index] = process_line(sorted_data[sor_index], reverse, algo_choice) 
 
     print("Frissített rendezett adatok:", sorted_data)
 
-    # Frissített adatok visszaírása a fájlba
     write_file(filename, sorted_data)
 
 if __name__ == "__main__":
