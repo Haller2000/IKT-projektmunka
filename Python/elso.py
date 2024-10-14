@@ -54,7 +54,7 @@ def menu():
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
-        
+# 3. Véletlen számok ellenőrzése
         elif valasztas == '3':
             file = open('ki.txt','r')
                 
@@ -71,7 +71,7 @@ def menu():
                     if maximum != emaximum:
                         print("A számok nem felelnek meg a feltételeknek")
 
-
+# 4. Véletlen szövegek ellenőrzése
         elif valasztas == '4':
             file = open('ki.txt','r')
 
@@ -83,9 +83,7 @@ def menu():
                 if veletlen_szovegek <= 20:
                     print('A szövegek nem feleltek meg a feltételeknek')
             
-                
-            
-
+# 5.  Kilépés
         elif valasztas == '5':
             print("Kilépés...")
             break
