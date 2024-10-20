@@ -29,7 +29,7 @@ def menu():
         
 
         if valasztas == '1':
-            # Véletlen egész számok generálása
+#1. Véletlen egész számok generálása
             darabszam = int(input("Hány véletlen egész számot szeretnél generálni? "))
             minimum = int(input("Add meg a minimum értéket: "))
             maximum = int(input("Add meg a maximum értéket: "))
@@ -43,7 +43,7 @@ def menu():
             print("Eredmények a 'ki.txt' fájlba írva.")
         
         elif valasztas == '2':
-            # Véletlen szövegek generálása
+#2. Véletlen szövegek generálása
             szdarabszam = int(input("Hány véletlen szöveget szeretnél generálni? "))
             
             veletlen_szovegek = veletlen_szoveg_generalo(szdarabszam)
@@ -54,14 +54,15 @@ def menu():
                 file.write(";".join(veletlen_szovegek) + "\n")
             print("Eredmények a 'ki.txt' fájlba írva.")
         
-        
+# 3. Véletlen számok ellenőrzése
         elif valasztas == '3':
-            file = open('ki.txt','r')
+            file = open('ki.txt','r') #Eredmények beolvasása
                 
             edarabszam = int(input("Hány véletlen egész számot generált?: "))
             eminimum = int(input("Mennyi volt a minimum érték?: "))
             emaximum = int(input("Mennyi volt a maximum érték?: "))
 
+            #Ellenőrzés
             if darabszam == edarabszam:
                 if minimum == eminimum:
                     if maximum == emaximum:
@@ -71,21 +72,20 @@ def menu():
                     if maximum != emaximum:
                         print("A számok nem felelnek meg a feltételeknek")
 
-
+# 4. Véletlen szövegek ellenőrzése
         elif valasztas == '4':
-            file = open('ki.txt','r')
+            file = open('ki.txt','r') #Eredmények beolvasása
 
             eszdarabszam = int(input("Hány véletlen szöveget generált? "))
 
+            #Ellenőrzés
             if szdarabszam == eszdarabszam:
                 print('A szövegek megfeleltek a feltételeknek')
             elif szdarabszam != darabszam:
                 if veletlen_szovegek <= 20:
                     print('A szövegek nem feleltek meg a feltételeknek')
             
-                
-            
-
+# 5.  Kilépés
         elif valasztas == '5':
             print("Kilépés...")
             break
