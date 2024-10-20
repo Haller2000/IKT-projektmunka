@@ -1,31 +1,8 @@
 filename = 'ki.txt'
 
-
-try:
-    with open(filename, 'r') as file:
-        lines = file.read().strip().splitlines()
-    data = [line.split(';') for line in lines]
-except FileNotFoundError:
-    print(f"Hiba: {filename} nem található.")
-    data = None
-
-if data is None:
-    quit()
-
-
-rendezi = input("Válaszd ki a rendezés irányát (n: növekvő, c: csökkenő): ")
-csokkeno = True if rendezi == 'c' else False
-
-
-print("Válaszd ki a rendezési algoritmust:")
-print("1. Egyszerű cserés rendezés")
-print("2. Beszúrásos rendezés")
-algoritmus = input("Add meg a választásodat (1 vagy 2): ")
-
-
-def is_number(s):
+def is_number(szam):
     try:
-        float(s)
+        float(szam)
         return True
     except ValueError:
         return False
@@ -58,39 +35,60 @@ def rendez(line, csokkeno, algoritmus):
         print("Hiba: Érvénytelen rendezési algoritmus.")
     return line
 
+def menu():
+    try:
+        with open(filename, 'r') as file:
+            lines = file.read().strip().splitlines()
+        data = [line.split(';') for line in lines]
+    except FileNotFoundError:
+        print(f"Hiba: {filename} nem található.")
+        data = None
 
-sorted_data = [rendez(line, csokkeno, algoritmus) for line in data]
-print("Rendezett adatok:", sorted_data)
-
-
-try:
-    with open(filename, 'w') as file:
-        for line in sorted_data:
-            file.write(';'.join(map(str, line)) + '\n')
-except Exception as e:
-    print(f"Hiba történt a fájl írása közben: {e}")
-
-
-sor_index = int(input("Melyik sorba szeretnéd az új számot vagy szót beilleszteni? (1-től kezdve): ")) - 1
-if sor_index < 0 or sor_index >= len(sorted_data):
-    print("Hiba: Érvénytelen sorindex.")
-    quit()
-
-new_elem = input("Adj meg egy új számot vagy szót: ")
-if is_number(new_elem):
-    new_elem = int(new_elem)
+    if data is None:
+        quit()
 
 
-sorted_data[sor_index].append(new_elem)
-sorted_data[sor_index] = rendez(sorted_data[sor_index], csokkeno, algoritmus)
-
-print("Frissített rendezett adatok:", sorted_data)
+    rendezi = input("Válaszd ki a rendezés irányát (n: növekvő, c: csökkenő): ")
+    csokkeno = True if rendezi == 'c' else False
 
 
-try:
-    with open(filename, 'w') as file:
-        for line in sorted_data:
-            file.write(';'.join(map(str, line)) + '\n')
-except Exception as e:
-    print(f"Hiba történt a fájl írása közben: {e}")
-2
+    print("Válaszd ki a rendezési algoritmust:")
+    print("1. Egyszerű cserés rendezés")
+    print("2. Beszúrásos rendezés")
+    algoritmus = input("Add meg a választásodat (1 vagy 2): ")
+    rendezett = [rendez(line, csokkeno, algoritmus) for line in data]
+    print("Rendezett adatok:", rendezett)
+
+
+    try:
+        with open(filename, 'w') as file:
+            for line in rendezett:
+                file.write(';'.join(map(str, line)) + '\n')
+    except Exception as e:
+        print(f"Hiba történt a fájl írása közben: {e}")
+
+    ok = True
+    while ok:
+        sor_index = int(input("Melyik sorba szeretnéd az új számot vagy szót beilleszteni? (1-től kezdve, vagy írj 'kilépés'-t a befejezéshez): ") or "-1") - 1
+        if sor_index < 0 or sor_index >= len(rendezett):
+            print("Hiba: Érvénytelen sorindex.")
+            continue
+
+        new_elem = input("Adj meg egy új számot vagy szót: ")
+        if is_number(new_elem):
+            new_elem = int(new_elem)
+
+        rendezett[sor_index].append(new_elem)
+        rendezett[sor_index] = rendez(rendezett[sor_index], csokkeno, algoritmus)
+
+        print("Frissített rendezett adatok:", rendezett)
+
+
+        try:
+            with open(filename, 'w') as file:
+                for line in rendezett:
+                    file.write(';'.join(map(str, line)) + '\n')
+        except Exception as e:
+            print(f"Hiba történt a fájl írása közben: {e}")
+
+menu()
