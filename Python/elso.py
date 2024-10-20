@@ -62,6 +62,7 @@ def menu():
             eminimum = int(input("Mennyi volt a minimum érték?: "))
             emaximum = int(input("Mennyi volt a maximum érték?: "))
 
+            #Ellenőrzés
             if darabszam == edarabszam:
                 if minimum == eminimum:
                     if maximum == emaximum:
@@ -77,6 +78,7 @@ def menu():
 
             eszdarabszam = int(input("Hány véletlen szöveget generált? "))
 
+            #Ellenőrzés
             if szdarabszam == eszdarabszam:
                 print('A szövegek megfeleltek a feltételeknek')
             elif szdarabszam != darabszam:
